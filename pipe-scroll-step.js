@@ -21,7 +21,8 @@
 
   /* ---- tunables ------------------------------------------------------------ */
   var MIN_WIDTH   = 992;     // desktop breakpoint (where the sticky pipe/visual exist)
-  var SPEED       = 0.85;    // seconds per transition
+  var SPEED       = 1.6;     // seconds per transition (text + pipe travel)
+  var PIPE_EASE   = "none";  // linear so the ball's descent is a steady, watchable glide
   var TOLERANCE   = 14;      // Observer gesture threshold (px)
   var PIPE_STOPS  = [0, 0.5, 1];   // fraction of total Lottie frames per feature (tune to taste)
   var EXIT_DUR    = 0.6;     // seconds for the release scroll
@@ -127,7 +128,7 @@
     if (!pipeAnim) return;
     var to = PIPE_STOPS[i] * pipeFrames;
     gsap.to(pipeAnim, {
-      currentFrame: to, duration: (instant || REDUCED) ? 0 : SPEED, ease: "power2.inOut",
+      currentFrame: to, duration: (instant || REDUCED) ? 0 : SPEED, ease: PIPE_EASE,
       onUpdate: function () { pipeAnim.goToAndStop(pipeAnim.currentFrame, true); }
     });
   }
